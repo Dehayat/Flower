@@ -15,6 +15,7 @@ namespace FL
         public LineView[] lineViews;
         public float lineSpeed = 30f;
         public float startXPosition = 1000;
+        public Player player;
 
         private int currentLineView = 0;
         public lineControlData ShowLine(string staticText, string dynamicText)
@@ -44,7 +45,23 @@ namespace FL
         {
             var lineView = currentLineControl.lineView;
 
-            lineView.SetText(staticText, dynamicText);
+            lineView.done += Done;
+            lineView.SetText2(staticText, dynamicText);
+            lineView.PlayShake();
+
+            foreach (var line in lineViews)
+            {
+                line.SetSpeed(0);
+            }
+            player.Stop();
+        }
+        void Done()
+        {
+            foreach (var line in lineViews)
+            {
+                line.SetSpeed(lineSpeed);
+            }
+            player.Move();
         }
     }
 }

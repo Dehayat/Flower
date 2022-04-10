@@ -10,6 +10,7 @@ namespace FL
         public float moveSpeed = 10f;
         public float jumpForce = 20f;
         public bool isMoving = true;
+        public Animator anim;
 
         private Rigidbody2D rb;
 
@@ -45,9 +46,11 @@ namespace FL
 
             if (wantToJump)
             {
+                isJumping = true;
                 velocity = rb.velocity;
                 velocity.y = jumpForce;
                 rb.velocity = velocity;
+                anim.SetBool("Jump", true);
 
                 wantToJump = false;
             }
@@ -56,6 +59,19 @@ namespace FL
         private void OnCollisionEnter2D(Collision2D collision)
         {
             isJumping = false;
+            anim.SetBool("Jump", false);
+        }
+
+        internal void Move()
+        {
+            isMoving = true;
+            anim.speed = 1;
+        }
+
+        internal void Stop()
+        {
+            anim.speed = 0;
+            isMoving = false;
         }
     }
 }
