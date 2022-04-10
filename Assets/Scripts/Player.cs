@@ -10,6 +10,7 @@ namespace FL
         public float moveSpeed = 10f;
         public float jumpForce = 20f;
         public bool isMoving = true;
+
         public Animator anim;
 
         private Rigidbody2D rb;
@@ -73,5 +74,12 @@ namespace FL
             anim.speed = 0;
             isMoving = false;
         }
+        internal void StopForMail()
+        {
+            anim.speed = 1;
+            anim.SetBool("StopWalking", true);
+            isMoving = false;
+        }
+
     }
 }
