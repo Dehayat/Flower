@@ -8,6 +8,7 @@ public class Player : MonoBehaviour
     public float moveSpeed = 10f;
     public float jumpForce = 20f;
     public bool isMoving = true;
+    public Animator anim;
 
     private Rigidbody2D rb;
 
@@ -43,9 +44,11 @@ public class Player : MonoBehaviour
 
         if (wantToJump)
         {
+            isJumping = true;
             velocity = rb.velocity;
             velocity.y = jumpForce;
             rb.velocity = velocity;
+            anim.SetBool("Jump", true);
 
             wantToJump = false;
         }
@@ -68,6 +71,7 @@ public class Player : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         isJumping = false;
+        anim.SetBool("Jump", false);
     }
 
     private void ShowLine(Line line)
