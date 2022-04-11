@@ -10,6 +10,7 @@ namespace FL
         [TextArea]
         public string text;
         public Flower defaultFlower;
+        public bool newLine = true;
 
         private Flower currentFlower;
 

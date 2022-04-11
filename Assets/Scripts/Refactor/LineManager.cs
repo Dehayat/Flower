@@ -2,19 +2,25 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 namespace FL
 {
     public class LineManager : MonoBehaviour
     {
         public LineController lineController;
         public LineGenerator lineGenerator;
+        public Letter letter;
 
         private Dictionary<Line, lineControlData> lineControlData = new Dictionary<Line, lineControlData>();
         private Line currentLine;
         private lineControlData currentLineControl;
 
         private string finalText = "";
+
+        internal void FinishGame()
+        {
+            letter.Show(finalText);
+            lineController.StopLines();
+        }
 
         private void Awake()
         {
@@ -28,11 +34,16 @@ namespace FL
             {
                 flower.Init(this);
             }
+            FindObjectOfType<MailBox>().Init(this);
         }
 
         public void SaveLine(Line line)
         {
-            finalText += lineGenerator.GenerateLine(line) + "\n";
+            finalText += lineGenerator.GenerateLine(line);
+            if (line.newLine)
+            {
+                finalText += "\n";
+            }
         }
 
         public void ShowLine(Line line)

@@ -20,6 +20,13 @@ namespace FL
         private void OnTriggerEnter2D(Collider2D collision)
         {
             lineManager.ChooseFlower(this);
+            StartCoroutine(HideFlower());
+        }
+
+        IEnumerator HideFlower()
+        {
+            yield return new WaitForSeconds(0.15f);
+            gameObject.SetActive(false);
         }
 
         public void Init(LineManager lineManager)

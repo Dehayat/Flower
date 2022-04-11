@@ -41,6 +41,14 @@ namespace FL
             return data;
         }
 
+        internal void StopLines()
+        {
+            foreach (var line in lineViews)
+            {
+                line.SetSpeed(0);
+            }
+        }
+
         public void UpdateLine(lineControlData currentLineControl, string staticText, string dynamicText)
         {
             var lineView = currentLineControl.lineView;
